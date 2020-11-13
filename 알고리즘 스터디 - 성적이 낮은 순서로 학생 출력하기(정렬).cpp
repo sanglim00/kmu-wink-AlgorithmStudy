@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -7,16 +8,8 @@ struct Student {
 	int score;
 };
 
-void SortedScore(int N, Student* menber) {
-	for (int i = 0; i < N-1; i++) {
-		for (int j = 0; j < N - 1; j++) {
-			if (menber[j].score > menber[j + 1].score) {
-				Student tmp = menber[j];
-				menber[j] = menber[j + 1];
-				menber[j + 1] = tmp;
-			}
-		}
-	}
+bool SortedScore(const Student& member1, const Student& member2) {
+	return member1.score < member2.score;
 }
 
 int main() {
@@ -24,10 +17,10 @@ int main() {
 
 	cin >> N;
 
-	Student* menber = new Student[N];
-	for (int i = 0; i < N; i++) cin >> menber[i].name >> menber[i].score;
+	Student* member = new Student[N];
+	for (int i = 0; i < N; i++) cin >> member[i].name >> member[i].score;
 	
-	SortedScore(N, menber);
+	sort(member, member+N, SortedScore);
 
-	for (int i = 0; i <N; i++) cout << menber[i].name << " ";
+	for (int i = 0; i <N; i++) cout << member[i].name << " ";
 }
